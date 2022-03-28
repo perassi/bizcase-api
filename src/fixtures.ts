@@ -3,12 +3,12 @@ import { getRepository } from 'typeorm';
 import { User } from 'modules/users/entities';
 
 export const setupFixtures = async () => {
-  // Add default user john@doe.com:s3cr3t
+  // Add default user bc@clearprism.com:s3cr3t
   const userRepository = getRepository(User);
-  const defaultUser = await userRepository.findOne({ email: 'john@doe.com' });
+  const defaultUser = await userRepository.findOne({ email: 'bc@clearprism.com' });
   if (!defaultUser) {
     const user = new User({
-      email: 'john@doe.com',
+      email: 'bc@clearprism.com',
       password: 's3cr3t',
     });
     await userRepository.save(user);
