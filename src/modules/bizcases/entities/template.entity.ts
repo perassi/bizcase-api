@@ -11,7 +11,7 @@ export class BcTemplate {
   @Column()
   name: string;
 
-  @Column({ type: 'text' })
+  @Column({ type: 'text', nullable: true })
   description?: string;
 
   @Column({
