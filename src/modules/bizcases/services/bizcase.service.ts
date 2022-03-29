@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
@@ -25,17 +25,29 @@ export class BizcaseService extends BaseService {
     return this.bizcaseRepository.findOne(id);
   }
 
-  async create(data: BizcaseCreationInput, user: any): Promise<Bizcase> {
-    return await this.bizcaseRepository.save(this.bizcaseRepository.create({ ...data, user }));
+  async findOneByTitle(title: string): Promise<Bizcase> {
+    return this.bizcaseRepository.findOne({ title });
   }
 
-  async save(id: number, data: BizcaseInput): Promise<Bizcase> {
-    return this.bizcaseRepository.save({ ...data, id });
+  async create(data: BizcaseCreationInput): Promise<Bizcase> {
+    if (await this.findOneByTitle(data.title)) {
+      throw new HttpException('Title already exists', HttpStatus.BAD_REQUEST);
+    }
+    return await this.bizcaseRepository.save(this.bizcaseRepository.create(data));
+  }
+
+  async insertMany(data: BizcaseCreationInput[]): Promise<Bizcase[]> {
+    const result = await this.bizcaseRepository.save(data);
+    return await this.bizcaseRepository.findByIds(result.map(bc => bc.id));
+  }
+
+  async save(data: BizcaseInput): Promise<Bizcase> {
+    return this.bizcaseRepository.save(data);
   }
 
   async saveMany(data: BizcaseInput[]) {
-    await this.bizcaseRepository.save(data);
-    return await this.bizcaseRepository.findByIds(data.map(kl => kl.id));
+    const result = await this.bizcaseRepository.save(data);
+    return await this.bizcaseRepository.findByIds(result.map(bc => bc.id));
   }
 
   async remove(id: number) {

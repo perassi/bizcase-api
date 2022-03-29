@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
@@ -25,6 +25,9 @@ export class UserService extends BaseService {
   }
 
   async create(data: UserCreationInput): Promise<User> {
+    if (await this.findOneByEmail(data.email)) {
+      throw new HttpException('Email address already exists', HttpStatus.BAD_REQUEST);
+    }
     return this.userRepository.save(this.userRepository.create(data));
   }
 

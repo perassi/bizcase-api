@@ -26,13 +26,13 @@ export class BizcaseController {
   constructor(private readonly bizcaseService: BizcaseService) {}
 
   @Get('')
-  async findAll(@Query() args?: BizcasesArgs) {
-    return this.bizcaseService.findAll(args);
+  async findAll(@Query() args?: BizcasesArgs, @CurrentUser() user?: User) {
+    return this.bizcaseService.findAll({ ...args, userId: user.id });
   }
 
   @Get('/paginate')
-  async findAllPagination(@Query() args?: BizcasesArgs) {
-    return this.bizcaseService.findAllPagination(args);
+  async findAllPagination(@Query() args?: BizcasesArgs, @CurrentUser() user?: User) {
+    return this.bizcaseService.findAllPagination({ ...args, userId: user.id });
   }
 
   @Get('/:id')
@@ -42,15 +42,20 @@ export class BizcaseController {
 
   @Post('')
   async create(@Body() data: BizcaseCreationInput, @CurrentUser() user: User) {
-    return this.bizcaseService.create(data, user);
+    return this.bizcaseService.create({ ...data, userId: user.id });
+  }
+
+  @Post('/insert-many')
+  async insertMany(@Body() data: BizcaseCreationInput[], @CurrentUser() user: User) {
+    return this.bizcaseService.insertMany(data.map(bc => ({ ...bc, userId: user.id })));
   }
 
   @Post('/:id')
   async save(@Param('id', new ParseIntPipe()) id: number, @Body() data: BizcaseInput) {
-    return this.bizcaseService.save(id, data);
+    return this.bizcaseService.save({ ...data, id });
   }
 
-  @Post('/bulk')
+  @Post('/save-many')
   async saveMany(@Body() data: BizcaseInput[]) {
     return this.bizcaseService.saveMany(data);
   }

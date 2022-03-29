@@ -66,7 +66,7 @@ describe('BizcaseController', () => {
     it('should return an array of bizcases', async () => {
       jest.spyOn(bizcaseService, 'findAll').mockImplementation(() => Promise.resolve(data));
 
-      expect(await bizcasesController.findAll()).toBe(data);
+      expect(await bizcasesController.findAll({}, user)).toBe(data);
     });
   });
 
@@ -78,7 +78,7 @@ describe('BizcaseController', () => {
         .spyOn(bizcaseService, 'findAllPagination')
         .mockImplementation(() => Promise.resolve(result));
 
-      expect(await bizcasesController.findAllPagination()).toBe(result);
+      expect(await bizcasesController.findAllPagination({}, user)).toBe(result);
     });
   });
 

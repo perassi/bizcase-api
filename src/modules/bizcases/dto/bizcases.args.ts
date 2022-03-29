@@ -3,4 +3,8 @@ import { Type } from 'class-transformer';
 
 import { BaseArgs } from 'modules/common/dto/base.args';
 
-export class BizcasesArgs extends BaseArgs {}
+export class BizcasesArgs extends BaseArgs {
+  @IsOptional()
+  @Type(() => Number)
+  userId?: number;
+}

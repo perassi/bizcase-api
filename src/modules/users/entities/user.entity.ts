@@ -1,10 +1,11 @@
-import { Entity, PrimaryGeneratedColumn, Column, BeforeInsert, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, BeforeInsert, OneToMany, Unique } from 'typeorm';
 import { Exclude } from 'class-transformer';
 
 import { hash } from 'lib/passwordHasher';
 import { Bizcase, BcTemplate } from 'modules/bizcases/entities';
 
 @Entity('users')
+@Unique(['email'])
 export class User {
   @PrimaryGeneratedColumn()
   id: number;

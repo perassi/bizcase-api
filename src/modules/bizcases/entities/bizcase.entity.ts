@@ -1,10 +1,11 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, Unique } from 'typeorm';
 
 import { User } from 'modules/users/entities';
 import { BizcaseInput, BizcaseCreationInput } from '../dto';
 import { BcTemplate } from './template.entity';
 
 @Entity('bizcases')
+@Unique(['title'])
 export class Bizcase {
   @PrimaryGeneratedColumn()
   id: number;

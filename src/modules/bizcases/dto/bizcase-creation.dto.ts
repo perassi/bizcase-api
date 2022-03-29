@@ -14,6 +14,11 @@ export class BizcaseCreationInput {
   readonly templateId: number;
 
   @IsOptional()
+  @IsNumber()
+  @Type(() => Number)
+  readonly userId?: number;
+
+  @IsOptional()
   readonly roi?: string;
 
   @IsOptional()

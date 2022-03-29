@@ -50,7 +50,7 @@ export class BcTemplateController {
     return this.bcTemplateService.save(id, data);
   }
 
-  @Post('/bulk')
+  @Post('/save-many')
   async saveMany(@Body() data: BcTemplateInput[]) {
     return this.bcTemplateService.saveMany(data);
   }
