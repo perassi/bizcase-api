@@ -7,4 +7,9 @@ export class BcTemplateCreationInput {
 
   @IsOptional()
   readonly description?: string;
+
+  @IsOptional()
+  @IsNumber()
+  @Type(() => Number)
+  readonly userId?: number;
 }

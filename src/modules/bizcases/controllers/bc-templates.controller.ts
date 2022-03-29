@@ -42,7 +42,12 @@ export class BcTemplateController {
 
   @Post('')
   async create(@Body() data: BcTemplateCreationInput, @CurrentUser() user: User) {
-    return this.bcTemplateService.create(data, user);
+    return this.bcTemplateService.create({ ...data, userId: user.id });
+  }
+
+  @Post('/insert-many')
+  async insertMany(@Body() data: BcTemplateCreationInput[], @CurrentUser() user: User) {
+    return this.bcTemplateService.insertMany(data.map(bct => ({ ...bct, userId: user.id })));
   }
 
   @Post('/:id')

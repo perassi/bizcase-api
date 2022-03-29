@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
@@ -27,10 +27,20 @@ export class BcTemplateService extends BaseService {
     return this.bcTemplateRepository.findOne(id);
   }
 
-  async create(data: BcTemplateCreationInput, user: any): Promise<BcTemplate> {
-    return await this.bcTemplateRepository.save(
-      this.bcTemplateRepository.create({ ...data, user })
-    );
+  async findOneByName(name: string): Promise<BcTemplate> {
+    return this.bcTemplateRepository.findOne({ name });
+  }
+
+  async create(data: BcTemplateCreationInput): Promise<BcTemplate> {
+    if (await this.findOneByName(data.name)) {
+      throw new HttpException('Name already exists', HttpStatus.BAD_REQUEST);
+    }
+    return await this.bcTemplateRepository.save(this.bcTemplateRepository.create(data));
+  }
+
+  async insertMany(data: BcTemplateCreationInput[]): Promise<BcTemplate[]> {
+    const result = await this.bcTemplateRepository.save(data);
+    return await this.bcTemplateRepository.findByIds(result.map(bct => bct.id));
   }
 
   async save(id: number, data: BcTemplateInput): Promise<BcTemplate> {
@@ -38,8 +48,8 @@ export class BcTemplateService extends BaseService {
   }
 
   async saveMany(data: BcTemplateInput[]) {
-    await this.bcTemplateRepository.save(data);
-    return await this.bcTemplateRepository.findByIds(data.map(kl => kl.id));
+    const result = await this.bcTemplateRepository.save(data);
+    return await this.bcTemplateRepository.findByIds(result.map(bct => bct.id));
   }
 
   async remove(id: number) {
