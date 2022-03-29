@@ -44,14 +44,14 @@ export class Bizcase {
     user => user.bizcases
   )
   @JoinColumn({ name: 'user_id' })
-  user: User;
+  user?: User;
 
   @ManyToOne(
     type => BcTemplate,
     template => template.bizcases
   )
   @JoinColumn({ name: 'bc_template_id' })
-  bcTemplate: BcTemplate;
+  bcTemplate?: BcTemplate;
 
   constructor(partial: Partial<Bizcase | BizcaseInput | BizcaseCreationInput>) {
     Object.assign(this, partial);

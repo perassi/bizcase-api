@@ -26,12 +26,12 @@ export class BizcaseController {
   constructor(private readonly bizcaseService: BizcaseService) {}
 
   @Get('')
-  async findAll(@Query() args: BizcasesArgs) {
+  async findAll(@Query() args?: BizcasesArgs) {
     return this.bizcaseService.findAll(args);
   }
 
   @Get('/paginate')
-  async findAllPagination(@Query() args: BizcasesArgs) {
+  async findAllPagination(@Query() args?: BizcasesArgs) {
     return this.bizcaseService.findAllPagination(args);
   }
 

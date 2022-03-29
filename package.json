@@ -64,6 +64,10 @@
     "typescript": "^3.6.3"
   },
   "jest": {
+    "moduleDirectories": [
+      "node_modules",
+      "src"
+    ],
     "moduleFileExtensions": [
       "js",
       "json",

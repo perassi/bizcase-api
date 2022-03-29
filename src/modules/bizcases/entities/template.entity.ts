@@ -27,14 +27,14 @@ export class BcTemplate {
       cascade: true,
     }
   )
-  bizcases: Bizcase[];
+  bizcases?: Bizcase[];
 
   @ManyToOne(
     type => User,
     user => user.bcTemplates
   )
   @JoinColumn({ name: 'user_id' })
-  user: User;
+  user?: User;
 
   constructor(partial: Partial<BcTemplate>) {
     Object.assign(this, partial);

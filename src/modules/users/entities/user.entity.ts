@@ -14,7 +14,7 @@ export class User {
 
   @Exclude()
   @Column()
-  password: string;
+  password?: string;
 
   @Column({
     name: 'full_name',
@@ -35,7 +35,7 @@ export class User {
       cascade: true,
     }
   )
-  bizcases: Bizcase[];
+  bizcases?: Bizcase[];
 
   @OneToMany(
     type => BcTemplate,
@@ -44,10 +44,10 @@ export class User {
       cascade: true,
     }
   )
-  bcTemplates: BcTemplate[];
+  bcTemplates?: BcTemplate[];
 
   @BeforeInsert()
-  hashPassword() {
+  hashPassword?() {
     this.password = this.password && hash(this.password);
   }
 

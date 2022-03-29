@@ -26,12 +26,12 @@ export class BcTemplateController {
   constructor(private readonly bcTemplateService: BcTemplateService) {}
 
   @Get('')
-  async findAll(@Query() args: BcTemplatesArgs) {
+  async findAll(@Query() args?: BcTemplatesArgs) {
     return this.bcTemplateService.findAll(args);
   }
 
   @Get('/paginate')
-  async findAllPagination(@Query() args: BcTemplatesArgs) {
+  async findAllPagination(@Query() args?: BcTemplatesArgs) {
     return this.bcTemplateService.findAllPagination(args);
   }
 

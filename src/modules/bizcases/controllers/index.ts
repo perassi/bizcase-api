@@ -1,2 +1,2 @@
-export { BizcaseController } from './bizcase.controller';
+export { BizcaseController } from './bizcases.controller';
 export { BcTemplateController } from './template.controller';
