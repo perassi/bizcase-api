@@ -49,7 +49,14 @@ pipeline {
 
         stage('test application') {
           steps {
-            sh 'yarn test'
+            sh 'yarn test:cov'
+          }
+
+          post {
+            always {
+              step([$class: 'CoberturaPublisher', coberturaReportFile: 'coverage/cobertura-coverage.xml'])
+              junit 'junit.xml'
+            }
           }
         }
 
@@ -78,10 +85,7 @@ pipeline {
 
             script {
               docker.withServer("ssh://ec2-user@54.88.176.131") {
-                docker.build(
-                  "visavis/bizcase-api:latest",
-                  "--build-arg DATABASE_PASSWORD='$DATABASE_PASSWORD' --build-arg DATABASE_USERNAME='$DATABASE_USERNAME' ."
-                )
+                docker.build("visavis/bizcase-api:latest")
               }
             }
           }
@@ -90,10 +94,8 @@ pipeline {
         // Since host shared docker.socks with jenkins, doing compose is fine in this case
         stage('docker-compose to remote server') {
           steps {
-            withEnv([
-              "DOCKER_HOST=ssh://ec2-user@54.88.176.131",
-            ]) {
-              sh('docker-compose -p bizcase-api up -d')
+            withEnv(["DOCKER_HOST=ssh://ec2-user@54.88.176.131"]) {
+              sh("DATABASE_PASSWORD='$DATABASE_PASSWORD' DATABASE_USERNAME='$DATABASE_USERNAME' docker-compose -p bizcase-api up -d --remove-orphans")
             }
           }
         }

@@ -28,7 +28,7 @@ services:
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD:-postgres}
       POSTGRES_DB: ${DATABASE_NAME:-bizcase}
     volumes:
-      - postgres:/var/lib/postgresql/data
+      - /home/ec2-user/postgres/pgdata:/var/lib/postgresql/data
     ports:
       - ${DATABASE_PORT:-5432}:5432
     networks:
@@ -38,6 +38,3 @@ services:
 networks:
   cap:
     driver: bridge
-
-volumes:
-  postgres:
