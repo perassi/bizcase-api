@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="21" failures="0" time="4.76">
+  <testsuite name="BizcaseController" errors="0" failures="0" skipped="0" timestamp="2020-03-10T20:14:13" time="1.949" tests="7">
+    <testcase classname="BizcaseController findAll should return an array of bizcases" name="BizcaseController findAll should return an array of bizcases" time="0.004">
+    </testcase>
+    <testcase classname="BizcaseController findAllPagination should return a pagination of bizcases" name="BizcaseController findAllPagination should return a pagination of bizcases" time="0">
+    </testcase>
+    <testcase classname="BizcaseController findOne should return a bizcase by id" name="BizcaseController findOne should return a bizcase by id" time="0.001">
+    </testcase>
+    <testcase classname="BizcaseController create should create a bizcase" name="BizcaseController create should create a bizcase" time="0">
+    </testcase>
+    <testcase classname="BizcaseController save should save a bizcase" name="BizcaseController save should save a bizcase" time="0.001">
+    </testcase>
+    <testcase classname="BizcaseController saveMany should save many bizcases" name="BizcaseController saveMany should save many bizcases" time="0">
+    </testcase>
+    <testcase classname="BizcaseController remove should remove a bizcase" name="BizcaseController remove should remove a bizcase" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="BcTemplateController" errors="0" failures="0" skipped="0" timestamp="2020-03-10T20:14:13" time="1.997" tests="7">
+    <testcase classname="BcTemplateController findAll should return an array of bcTemplates" name="BcTemplateController findAll should return an array of bcTemplates" time="0.005">
+    </testcase>
+    <testcase classname="BcTemplateController findAllPagination should return a pagination of bcTemplates" name="BcTemplateController findAllPagination should return a pagination of bcTemplates" time="0">
+    </testcase>
+    <testcase classname="BcTemplateController findOne should return a bcTemplate by id" name="BcTemplateController findOne should return a bcTemplate by id" time="0.001">
+    </testcase>
+    <testcase classname="BcTemplateController create should create a bcTemplate" name="BcTemplateController create should create a bcTemplate" time="0">
+    </testcase>
+    <testcase classname="BcTemplateController save should save a bcTemplate" name="BcTemplateController save should save a bcTemplate" time="0.001">
+    </testcase>
+    <testcase classname="BcTemplateController saveMany should save many bcTemplates" name="BcTemplateController saveMany should save many bcTemplates" time="0">
+    </testcase>
+    <testcase classname="BcTemplateController remove should remove a bcTemplate" name="BcTemplateController remove should remove a bcTemplate" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="ProcLutController" errors="0" failures="0" skipped="0" timestamp="2020-03-10T20:14:13" time="4.509" tests="7">
+    <testcase classname="ProcLutController findAll should return an array of procLuts" name="ProcLutController findAll should return an array of procLuts" time="0.003">
+    </testcase>
+    <testcase classname="ProcLutController findAllPagination should return a pagination of procLuts" name="ProcLutController findAllPagination should return a pagination of procLuts" time="0.001">
+    </testcase>
+    <testcase classname="ProcLutController findOne should return a procLut by id" name="ProcLutController findOne should return a procLut by id" time="0">
+    </testcase>
+    <testcase classname="ProcLutController create should create a procLut" name="ProcLutController create should create a procLut" time="0.001">
+    </testcase>
+    <testcase classname="ProcLutController save should save a procLut" name="ProcLutController save should save a procLut" time="0">
+    </testcase>
+    <testcase classname="ProcLutController saveMany should save many procLuts" name="ProcLutController saveMany should save many procLuts" time="0.001">
+    </testcase>
+    <testcase classname="ProcLutController remove should remove a procLut" name="ProcLutController remove should remove a procLut" time="0">
+    </testcase>
+  </testsuite>
+</testsuites>
