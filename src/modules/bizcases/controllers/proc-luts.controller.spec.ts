@@ -31,7 +31,7 @@ const data: ProcLut[] = [
 describe('ProcLutController', () => {
   let procLutsController: ProcLutController;
   let procLutService: ProcLutService;
-  const procLutRepository: Repository<ProcLut> = new Repository<ProcLut>();
+  let procLutRepository: Repository<ProcLut>;
 
   beforeEach(async () => {
     procLutService = new ProcLutService(procLutRepository);

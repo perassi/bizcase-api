@@ -10,7 +10,7 @@ import { BcTemplateCreationInput, BcTemplateInput, BcTemplatesArgs } from '../dt
 @Injectable()
 export class BcTemplateService extends BaseService {
   constructor(
-    @InjectRepository(BcTemplate) private readonly bcTemplateRepository: Repository<BcTemplate>
+    @InjectRepository(BcTemplate) private readonly bcTemplateRepository: Repository<BcTemplate>,
   ) {
     super();
   }
