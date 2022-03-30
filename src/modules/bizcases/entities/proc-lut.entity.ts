@@ -4,7 +4,7 @@ import {
   Column,
 } from 'typeorm';
 
-@Entity('proc_lut')
+@Entity('proc_luts')
 export class ProcLut {
   @PrimaryGeneratedColumn()
   id: number;
