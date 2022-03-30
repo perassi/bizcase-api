@@ -42,14 +42,14 @@ export class Bizcase {
 
   @ManyToOne(
     type => User,
-    user => user.bizcases
+    user => user.bizcases,
   )
   @JoinColumn({ name: 'user_id' })
   user?: User;
 
   @ManyToOne(
     type => BcTemplate,
-    template => template.bizcases
+    template => template.bizcases,
   )
   @JoinColumn({ name: 'bc_template_id' })
   bcTemplate?: BcTemplate;

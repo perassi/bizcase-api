@@ -9,3 +9,7 @@ export { BizcasesArgs } from './bizcases.args';
 export { ProcLutCreationInput } from './proc-lut-creation.dto';
 export { ProcLutInput } from './proc-lut.dto';
 export { ProcLutsArgs } from './proc-luts.args';
+
+export { TplProcessCreationInput } from './tpl-process-creation.dto';
+export { TplProcessInput } from './tpl-process.dto';
+export { TplProcessArgs } from './tpl-processes.args';

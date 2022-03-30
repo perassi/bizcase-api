@@ -1,18 +1,10 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  ManyToOne,
-  JoinColumn,
-  OneToMany,
-  Unique,
-} from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
 
 import { User } from 'modules/users/entities';
 import { Bizcase } from './bizcase.entity';
+import { TplProcess } from './tpl-process.entity';
 
 @Entity('bc_templates')
-@Unique(['name'])
 export class BcTemplate {
   @PrimaryGeneratedColumn()
   id: number;
@@ -34,16 +26,25 @@ export class BcTemplate {
     bizcase => bizcase.bcTemplate,
     {
       cascade: true,
-    }
+    },
   )
   bizcases?: Bizcase[];
 
   @ManyToOne(
     type => User,
-    user => user.bcTemplates
+    user => user.bcTemplates,
   )
   @JoinColumn({ name: 'user_id' })
   user?: User;
+
+  @OneToMany(
+    type => TplProcess,
+    tplProcess => tplProcess.bcTemplate,
+    {
+      cascade: true,
+    },
+  )
+  tplProcesses?: TplProcess[];
 
   constructor(partial: Partial<BcTemplate>) {
     Object.assign(this, partial);

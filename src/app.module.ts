@@ -8,7 +8,7 @@ import { AuthModule } from 'modules/auth';
 import { BizcasesModule } from 'modules/bizcases';
 
 import { User } from 'modules/users/entities';
-import { BcTemplate, Bizcase, ProcLut } from 'modules/bizcases/entities';
+import { BcTemplate, Bizcase, ProcLut, TplProcess } from 'modules/bizcases/entities';
 
 import { AppController } from './app.controller';
 
@@ -21,7 +21,7 @@ import { AppController } from './app.controller';
     TypeOrmModule.forRootAsync({
       useFactory: async (configService: ConfigService) => ({
         ...configService.get('database'),
-        entities: [User, BcTemplate, Bizcase, ProcLut],
+        entities: [User, BcTemplate, Bizcase, ProcLut, TplProcess],
       }),
       inject: [ConfigService],
     }),
