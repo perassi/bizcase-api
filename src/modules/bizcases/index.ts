@@ -13,6 +13,7 @@ import { BcTemplateController, BizcaseController, ProcLutController, TplProcessC
   ],
   providers: [BizcaseService, BcTemplateService, ProcLutService, TplProcessService],
   controllers: [BcTemplateController, BizcaseController, ProcLutController, TplProcessController],
+
   exports: [BizcaseService, BcTemplateService, TypeOrmModule],
 })
 export class BizcasesModule {}
