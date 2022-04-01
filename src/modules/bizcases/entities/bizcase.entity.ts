@@ -3,7 +3,7 @@ import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, Unique, 
 import { User } from 'modules/users/entities';
 import { BizcaseInput, BizcaseCreationInput } from '../dto';
 import { BcTemplate } from './template.entity';
-import { Tco } from './tco.entity';
+import { Tco } from 'modules/tco/entities';
 import { Process } from './process.entity';
 
 @Entity('bizcases')

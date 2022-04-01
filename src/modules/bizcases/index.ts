@@ -8,7 +8,6 @@ import {
   ProcLut,
   TplProcess,
   Process,
-  Tco,
 } from './entities';
 import {
   BcTemplateService,
@@ -16,7 +15,6 @@ import {
   ProcLutService,
   TplProcessService,
   ProcessService,
-  TcoService,
 } from './services';
 import {
   BcTemplateController,
@@ -24,7 +22,6 @@ import {
   ProcLutController,
   TplProcessController,
   ProcessController,
-  TcoController,
 } from './controllers';
 
 @Module({
@@ -35,7 +32,6 @@ import {
       ProcLut,
       TplProcess,
       Process,
-      Tco,
     ]),
     PassportModule.register({ defaultStrategy: 'jwt' }),
   ],
@@ -45,7 +41,6 @@ import {
     ProcLutService,
     TplProcessService,
     ProcessService,
-    TcoService,
   ],
   controllers: [
     BcTemplateController,
@@ -53,7 +48,6 @@ import {
     ProcLutController,
     TplProcessController,
     ProcessController,
-    TcoController,
   ],
 
   exports: [BizcaseService, BcTemplateService, TypeOrmModule],

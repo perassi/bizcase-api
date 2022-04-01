@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, PrimaryColumn } from 'typeorm';
 
 import { TcoInput, TcoCreationInput } from '../dto';
-import { Bizcase } from './bizcase.entity';
+import { Bizcase } from 'modules/bizcases/entities';
 
 @Entity('tcos')
 export class Tco {

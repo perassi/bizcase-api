@@ -6,9 +6,11 @@ import { PassportModule } from '@nestjs/passport';
 import { UsersModule } from 'modules/users';
 import { AuthModule } from 'modules/auth';
 import { BizcasesModule } from 'modules/bizcases';
+import { TcoModule } from 'modules/tco';
 
 import { User } from 'modules/users/entities';
-import { BcTemplate, Bizcase, ProcLut, TplProcess, Process, Tco } from 'modules/bizcases/entities';
+import { BcTemplate, Bizcase, ProcLut, TplProcess, Process } from 'modules/bizcases/entities';
+import { Tco } from 'modules/tco/entities';
 
 import { AppController } from './app.controller';
 
@@ -29,6 +31,7 @@ import { AppController } from './app.controller';
     UsersModule,
     AuthModule,
     BizcasesModule,
+    TcoModule,
   ],
   controllers: [AppController],
   providers: [],
