@@ -1,8 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, Unique } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, Unique, OneToMany } from 'typeorm';
 
 import { User } from 'modules/users/entities';
 import { BizcaseInput, BizcaseCreationInput } from '../dto';
 import { BcTemplate } from './template.entity';
+import { Tco } from './tco.entity';
+import { Process } from './process.entity';
 
 @Entity('bizcases')
 @Unique(['title'])
@@ -53,6 +55,24 @@ export class Bizcase {
   )
   @JoinColumn({ name: 'bc_template_id' })
   bcTemplate?: BcTemplate;
+
+  @OneToMany(
+    type => Tco,
+    obj => obj.bc,
+    {
+      cascade: true,
+    },
+  )
+  tcos?: Tco[];
+
+  @OneToMany(
+    type => Process,
+    obj => obj.bc,
+    {
+      cascade: true,
+    },
+  )
+  processes?: Process[];
 
   constructor(partial: Partial<Bizcase | BizcaseInput | BizcaseCreationInput>) {
     Object.assign(this, partial);

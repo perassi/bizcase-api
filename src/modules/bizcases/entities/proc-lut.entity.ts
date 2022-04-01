@@ -29,7 +29,6 @@ export class ProcLut {
   )
   tplProcesses?: TplProcess[];
 
-
   constructor(partial: Partial<ProcLut>) {
     Object.assign(this, partial);
   }
