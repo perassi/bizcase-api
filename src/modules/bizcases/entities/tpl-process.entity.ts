@@ -20,8 +20,17 @@ export class TplProcess {
   })
   procLutId: number;
 
-  @Column({ type: 'jsonb', nullable: true })
-  kpis: object;
+  @Column({
+    name: 'kpiId',
+    nullable: true,
+  })
+  kpiId: number;
+
+  @Column({
+    type: 'jsonb',
+    nullable: true,
+  })
+  meta: object;
 
   @ManyToOne(
     type => BcTemplate,

@@ -18,5 +18,10 @@ export class TplProcessInput {
   readonly procLutId: number;
 
   @IsOptional()
-  readonly kpis?: object;
+  @IsNumber()
+  @Type(() => Number)
+  readonly kpiId: number;
+
+  @IsOptional()
+  readonly meta?: object;
 }
