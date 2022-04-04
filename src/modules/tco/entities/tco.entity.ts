@@ -1,7 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, PrimaryColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, PrimaryColumn, OneToMany } from 'typeorm';
 
 import { TcoInput, TcoCreationInput } from '../dto';
 import { Bizcase } from 'modules/bizcases/entities';
+import { Resource } from './resource.entity';
+import { License } from './license.entity';
+import { OtherCostOpt } from './other-cost-opt.entity';
 
 @Entity('tcos')
 export class Tco {
@@ -75,6 +78,33 @@ export class Tco {
   )
   @JoinColumn({ name: 'bc_id' })
   bc?: Bizcase;
+
+  @OneToMany(
+    type => Resource,
+    obj => obj.tco,
+    {
+      cascade: true,
+    },
+  )
+  resources?: Resource[];
+
+  @OneToMany(
+    type => License,
+    obj => obj.tco,
+    {
+      cascade: true,
+    },
+  )
+  licenses?: License[];
+
+  @OneToMany(
+    type => OtherCostOpt,
+    obj => obj.tco,
+    {
+      cascade: true,
+    },
+  )
+  otherCostOpts?: OtherCostOpt[];
 
   constructor(partial: Partial<Tco | TcoInput | TcoCreationInput>) {
     Object.assign(this, partial);

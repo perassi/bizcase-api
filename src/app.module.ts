@@ -10,7 +10,14 @@ import { TcoModule } from 'modules/tco';
 
 import { User } from 'modules/users/entities';
 import { BcTemplate, Bizcase, ProcLut, TplProcess, Process } from 'modules/bizcases/entities';
-import { Tco } from 'modules/tco/entities';
+import {
+  Tco,
+  License,
+  LicenseDetail,
+  Resource,
+  ResourceDetail,
+  OtherCostOpt,
+} from 'modules/tco/entities';
 
 import { AppController } from './app.controller';
 
@@ -23,7 +30,20 @@ import { AppController } from './app.controller';
     TypeOrmModule.forRootAsync({
       useFactory: async (configService: ConfigService) => ({
         ...configService.get('database'),
-        entities: [User, BcTemplate, Bizcase, ProcLut, TplProcess, Process, Tco],
+        entities: [
+          User,
+          BcTemplate,
+          Bizcase,
+          ProcLut,
+          TplProcess,
+          Process,
+          Tco,
+          License,
+          LicenseDetail,
+          Resource,
+          ResourceDetail,
+          OtherCostOpt,
+        ],
       }),
       inject: [ConfigService],
     }),
