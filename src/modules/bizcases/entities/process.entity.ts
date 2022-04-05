@@ -51,6 +51,7 @@ export class Process {
     Object.assign(this, partial);
   }
 
+  @BeforeInsert()
   @BeforeUpdate()
   async updateEntity() {
     await this.addKpiData();
