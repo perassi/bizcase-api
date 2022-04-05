@@ -12,6 +12,7 @@ import {
   ParseIntPipe,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { ApiTags } from '@nestjs/swagger';
 
 import { CurrentUser } from 'modules/common/decorators';
 import { User } from 'modules/users/entities';
@@ -19,6 +20,7 @@ import { User } from 'modules/users/entities';
 import { ResourceDetailService } from '../services';
 import { ResourceDetailInput, ResourceDetailCreationInput, ResourceDetailsArgs } from '../dto';
 
+@ApiTags('resource-details')
 @UseGuards(AuthGuard())
 @UseInterceptors(ClassSerializerInterceptor)
 @Controller('resource-details')

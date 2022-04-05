@@ -12,10 +12,12 @@ import {
   ParseIntPipe,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { ApiTags } from '@nestjs/swagger';
 
 import { OtherCostOptService } from '../services';
 import { OtherCostOptInput, OtherCostOptCreationInput, OtherCostOptsArgs } from '../dto';
 
+@ApiTags('other-cost-opts')
 @UseGuards(AuthGuard())
 @UseInterceptors(ClassSerializerInterceptor)
 @Controller('other-cost-opts')

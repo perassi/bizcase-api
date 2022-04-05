@@ -20,6 +20,7 @@ import { User } from 'modules/users/entities';
 import { LicenseService } from '../services';
 import { LicenseInput, LicenseCreationInput, LicensesArgs } from '../dto';
 
+@ApiTags('licenses')
 @UseGuards(AuthGuard())
 @UseInterceptors(ClassSerializerInterceptor)
 @Controller('licenses')

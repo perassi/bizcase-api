@@ -9,12 +9,14 @@ import {
   ClassSerializerInterceptor,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { ApiTags } from '@nestjs/swagger';
 
 import { UserService } from 'modules/users/services';
 import { UserCreationInput } from 'modules/users/dto';
 
 import { AuthService } from '../services';
 
+@ApiTags('auth')
 @Controller('auth')
 export class AuthController {
   constructor(

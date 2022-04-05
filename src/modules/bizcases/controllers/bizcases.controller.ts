@@ -12,6 +12,7 @@ import {
   ParseIntPipe,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { ApiTags } from '@nestjs/swagger';
 
 import { CurrentUser } from 'modules/common/decorators';
 import { User } from 'modules/users/entities';
@@ -19,6 +20,7 @@ import { User } from 'modules/users/entities';
 import { BizcaseService } from '../services';
 import { BizcaseInput, BizcaseCreationInput, BizcasesArgs } from '../dto';
 
+@ApiTags('bizcases')
 @UseGuards(AuthGuard())
 @UseInterceptors(ClassSerializerInterceptor)
 @Controller('bizcases')

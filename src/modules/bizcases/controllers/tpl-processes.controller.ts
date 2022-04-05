@@ -12,6 +12,7 @@ import {
   ParseIntPipe,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { ApiTags } from '@nestjs/swagger';
 
 import { CurrentUser } from 'modules/common/decorators';
 import { User } from 'modules/users/entities';
@@ -19,6 +20,7 @@ import { User } from 'modules/users/entities';
 import { TplProcessService } from '../services';
 import { TplProcessInput, TplProcessCreationInput, TplProcessArgs } from '../dto';
 
+@ApiTags('tpl-processes')
 @UseGuards(AuthGuard())
 @UseInterceptors(ClassSerializerInterceptor)
 @Controller('tpl-processes')

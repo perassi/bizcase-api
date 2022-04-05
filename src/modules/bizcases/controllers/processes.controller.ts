@@ -12,10 +12,12 @@ import {
   ParseIntPipe,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { ApiTags } from '@nestjs/swagger';
 
 import { ProcessService } from '../services';
 import { ProcessInput, ProcessCreationInput, ProcessArgs } from '../dto';
 
+@ApiTags('processes')
 @UseGuards(AuthGuard())
 @UseInterceptors(ClassSerializerInterceptor)
 @Controller('processes')
