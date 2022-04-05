@@ -4,13 +4,13 @@ import { Type } from 'class-transformer';
 
 export class LicenseCreationInput {
   @IsOptional()
-  vendor: string;
+  vendor?: string;
 
   @IsOptional()
-  vendorSol: string;
+  vendorSol?: string;
 
   @IsOptional()
-  opt: string;
+  opt?: string;
 
   @IsOptional()
   discountPct?: number;

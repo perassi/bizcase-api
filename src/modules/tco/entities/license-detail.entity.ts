@@ -12,7 +12,7 @@ export class LicenseDetail {
     name: 'name',
     nullable: true,
   })
-  name: string;
+  name?: string;
 
   @Column({
     name: 'count',

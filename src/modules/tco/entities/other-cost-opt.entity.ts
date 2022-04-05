@@ -12,7 +12,7 @@ export class OtherCostOpt {
     name: 'item',
     nullable: true,
   })
-  item: string;
+  item?: string;
 
   @Column({
     name: 'cost_type',
