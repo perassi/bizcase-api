@@ -1,4 +1,7 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
+import { deepDiff } from 'lib/deepDiffCheck';
+import * as _ from 'lodash';
+
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
@@ -35,10 +38,16 @@ export class ProcessService extends BaseService {
   }
 
   async save(id: number, data: ProcessInput): Promise<Process> {
-    return this.processRepository.save({ ...data, id });
+    const item = await this.processRepository.findOne(id);
+    Object.assign(item, data);
+    return this.processRepository.save(item);
   }
 
   async saveMany(data: ProcessInput[]) {
+    const processes = await this.processRepository.findByIds(data.map(item => item.id))
+    processes.map(pro => {
+      Object.assign(pro, _.find(data, { id: pro.id }));
+    });
     const result = await this.processRepository.save(data);
     return await this.processRepository.findByIds(result.map(item => item.id));
   }

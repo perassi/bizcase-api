@@ -1,9 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, PrimaryColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, PrimaryColumn, BeforeUpdate, AfterLoad, BeforeInsert } from 'typeorm';
 
 import { User } from 'modules/users/entities';
 import { ProcessInput, ProcessCreationInput } from '../dto';
 import { Bizcase } from './bizcase.entity';
 import { ProcLut } from './proc-lut.entity';
+import { computeKpi } from 'lib/kpiCompute';
 
 @Entity('processes')
 export class Process {
@@ -30,7 +31,7 @@ export class Process {
     type: 'jsonb',
     nullable: true,
   })
-  data: object;
+  data: {[key: string ]: any};
 
   @ManyToOne(
     type => Bizcase,
@@ -48,5 +49,16 @@ export class Process {
 
   constructor(partial: Partial<Process | ProcessInput | ProcessCreationInput>) {
     Object.assign(this, partial);
+  }
+
+  @BeforeUpdate()
+  async updateEntity() {
+    await this.addKpiData();
+  }
+
+  async addKpiData() {
+    if (this.kpiId && this.data) {
+      this.data = await computeKpi(this.kpiId, this.data);
+    }
   }
 }

@@ -31,6 +31,7 @@
     "@nestjs/typeorm": "^6.3.3",
     "class-transformer": "^0.2.3",
     "class-validator": "^0.11.0",
+    "hot-formula-parser": "^3.0.2",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.15",
     "passport": "^0.4.1",
@@ -66,6 +67,9 @@
     "typescript": "^3.6.3"
   },
   "jest": {
+    "setupFiles": [
+      "../test/setup/dotenvConfig"
+    ],
     "moduleDirectories": [
       "node_modules",
       "src"
