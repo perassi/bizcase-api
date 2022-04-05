@@ -8,8 +8,8 @@ export class LicenseDetailInput {
   @Type(() => Number)
   readonly id: number;
 
-  @IsNotEmpty()
-  name: string;
+  @IsOptional()
+  name?: string;
 
   @IsOptional()
   count?: number;

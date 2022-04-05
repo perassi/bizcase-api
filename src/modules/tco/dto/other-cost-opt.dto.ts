@@ -8,8 +8,8 @@ export class OtherCostOptInput {
   @Type(() => Number)
   readonly id: number;
 
-  @IsNotEmpty()
-  item: string;
+  @IsOptional()
+  item?: string;
 
   @IsOptional()
   costType?: string;

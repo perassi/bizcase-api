@@ -10,19 +10,19 @@ const data: TplProcess[] = [
   {
     bcTemplateId: 1,
     procLutId: 1,
-    kpis: { test: true },
+    meta: { test: true },
     id: 1,
   },
   {
     bcTemplateId: 2,
     procLutId: 1,
-    kpis: { test: true },
+    meta: { test: true },
     id: 2,
   },
   {
     bcTemplateId: 1,
     procLutId: 2,
-    kpis: { test: true },
+    meta: { test: true },
     id: 3,
   },
 ];
@@ -74,7 +74,7 @@ describe('TplProcessController', () => {
       const inputData = {
         bcTemplateId: 1,
         procLutId: 1,
-        kpis: { test: true },
+        meta: { test: true },
       };
       const result = { ...inputData, id: 100 };
       jest.spyOn(tplProcessService, 'create').mockImplementation(() => Promise.resolve(result));

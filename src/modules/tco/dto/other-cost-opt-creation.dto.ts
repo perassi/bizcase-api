@@ -2,8 +2,8 @@ import { IsNotEmpty, IsOptional, IsNumber } from 'class-validator';
 import { Type } from 'class-transformer';
 
 export class OtherCostOptCreationInput {
-  @IsNotEmpty()
-  item: string;
+  @IsOptional()
+  item?: string;
 
   @IsOptional()
   costType?: string;

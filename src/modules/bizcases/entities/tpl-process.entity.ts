@@ -24,7 +24,7 @@ export class TplProcess {
     name: 'kpiId',
     nullable: true,
   })
-  kpiId: number;
+  kpiId?: number;
 
   @Column({
     type: 'jsonb',

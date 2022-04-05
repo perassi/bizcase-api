@@ -20,7 +20,7 @@ export class TplProcessInput {
   @IsOptional()
   @IsNumber()
   @Type(() => Number)
-  readonly kpiId: number;
+  readonly kpiId?: number;
 
   @IsOptional()
   readonly meta?: object;
