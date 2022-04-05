@@ -54,6 +54,7 @@ export class Process {
   @BeforeInsert()
   @BeforeUpdate()
   async updateEntity() {
+    console.log('XXXXXXXXXXXX');
     await this.addKpiData();
   }
 

@@ -1,4 +1,4 @@
-import * as _ from 'lodash';
+import _ from 'lodash';
 
 export function deepDiff(from, to) {
   const changes = (object, base) => {

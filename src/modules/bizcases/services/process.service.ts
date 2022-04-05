@@ -1,6 +1,6 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { deepDiff } from 'lib/deepDiffCheck';
-import * as _ from 'lodash';
+import _ from 'lodash';
 
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
