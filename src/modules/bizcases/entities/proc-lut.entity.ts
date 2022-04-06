@@ -15,10 +15,10 @@ export class ProcLut {
   name: string;
 
   @Column()
-  proc: string;
+  proc?: string;
 
   @Column()
-  comment: string;
+  comment?: string;
 
   @OneToMany(
     type => TplProcess,

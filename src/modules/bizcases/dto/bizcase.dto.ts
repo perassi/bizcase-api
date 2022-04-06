@@ -22,5 +22,5 @@ export class BizcaseInput {
   @IsOptional()
   @IsNumber()
   @Type(() => Number)
-  readonly templateId?: number;
+  readonly templateId: number;
 }

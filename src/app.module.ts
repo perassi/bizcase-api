@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PassportModule } from '@nestjs/passport';
+import { Test, TestingModule } from '@nestjs/testing';
 
 import { UsersModule } from 'modules/users';
 import { AuthModule } from 'modules/auth';
@@ -23,7 +24,7 @@ import { KpiLib } from 'modules/kpi/entities';
 
 import { AppController } from './app.controller';
 
-@Module({
+export const MODULE = {
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
@@ -69,5 +70,7 @@ import { AppController } from './app.controller';
   ],
   controllers: [AppController],
   providers: [],
-})
+};
+
+@Module(MODULE)
 export class AppModule {}

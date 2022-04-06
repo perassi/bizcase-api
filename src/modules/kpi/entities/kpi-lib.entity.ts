@@ -10,7 +10,7 @@ export class KpiLib {
   description?: string;
 
   @Column({
-    type: 'jsonb',
+    type: process.env.NODE_ENV === 'test' ? 'simple-json' : 'jsonb',
     nullable: true,
   })
   kpi?: {[key: string ]: any};
@@ -18,7 +18,7 @@ export class KpiLib {
   @Column({
     name: 'tags',
     nullable: true,
-    type: 'character varying',
+    type: process.env.NODE_ENV === 'test' ? 'varying character' : 'character varying',
   })
   tags?: string[];
 

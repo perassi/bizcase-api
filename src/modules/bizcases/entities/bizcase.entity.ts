@@ -19,13 +19,13 @@ export class Bizcase {
   description?: string;
 
   @Column({
-    type: 'jsonb',
+    type: process.env.NODE_ENV === 'test' ? 'simple-json' : 'jsonb',
     nullable: true,
   })
   roi?: string;
 
   @Column({
-    type: 'jsonb',
+    type: process.env.NODE_ENV === 'test' ? 'simple-json' : 'jsonb',
     nullable: true,
   })
   summary?: string;
@@ -38,9 +38,9 @@ export class Bizcase {
 
   @Column({
     name: 'bc_template_id',
-    nullable: true,
+    nullable: false,
   })
-  templateId?: number;
+  templateId: number;
 
   @ManyToOne(
     type => User,

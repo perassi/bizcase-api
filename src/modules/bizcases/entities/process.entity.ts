@@ -28,7 +28,7 @@ export class Process {
   kpiId: number;
 
   @Column({
-    type: 'jsonb',
+    type: process.env.NODE_ENV === 'test' ? 'simple-json' : 'jsonb',
     nullable: true,
   })
   data: {[key: string ]: any};

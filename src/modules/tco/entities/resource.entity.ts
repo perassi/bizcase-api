@@ -24,14 +24,14 @@ export class Resource {
   @Column({
     name: 'proj_start_dt',
     nullable: true,
-    type: 'time with time zone',
+    type: process.env.NODE_ENV === 'test' ? 'datetime' : 'time with time zone',
   })
   projStartDt?: Date;
 
   @Column({
     name: 'proj_end_dt',
     nullable: true,
-    type: 'time with time zone',
+    type: process.env.NODE_ENV === 'test' ? 'datetime' : 'time with time zone',
   })
   projEndDt?: Date;
 

@@ -21,13 +21,13 @@ export class TplProcess {
   procLutId: number;
 
   @Column({
-    name: 'kpiId',
+    name: 'kpi_id',
     nullable: true,
   })
   kpiId?: number;
 
   @Column({
-    type: 'jsonb',
+    type: process.env.NODE_ENV === 'test' ? 'simple-json' : 'jsonb',
     nullable: true,
   })
   meta: object;

@@ -25,6 +25,7 @@ import {
 } from './controllers';
 import {
   ProcessSubscriber,
+  BizcaseSubscriber,
 } from './subscribers';
 
 import { KpiModule } from 'modules/kpi';
@@ -48,6 +49,7 @@ import { KpiModule } from 'modules/kpi';
     TplProcessService,
     ProcessService,
     ProcessSubscriber,
+    BizcaseSubscriber,
   ],
   controllers: [
     BcTemplateController,
