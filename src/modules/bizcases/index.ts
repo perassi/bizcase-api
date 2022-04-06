@@ -23,6 +23,11 @@ import {
   TplProcessController,
   ProcessController,
 } from './controllers';
+import {
+  ProcessSubscriber,
+} from './subscribers';
+
+import { KpiModule } from 'modules/kpi';
 
 @Module({
   imports: [
@@ -34,6 +39,7 @@ import {
       Process,
     ]),
     PassportModule.register({ defaultStrategy: 'jwt' }),
+    KpiModule,
   ],
   providers: [
     BizcaseService,
@@ -41,6 +47,7 @@ import {
     ProcLutService,
     TplProcessService,
     ProcessService,
+    ProcessSubscriber,
   ],
   controllers: [
     BcTemplateController,

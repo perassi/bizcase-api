@@ -1,13 +1,13 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, PrimaryColumn, BeforeUpdate, AfterLoad, BeforeInsert } from 'typeorm';
 
-import { User } from 'modules/users/entities';
 import { ProcessInput, ProcessCreationInput } from '../dto';
 import { Bizcase } from './bizcase.entity';
 import { ProcLut } from './proc-lut.entity';
-import { computeKpi } from 'lib/kpiCompute';
+import { KpiLibService } from 'modules/kpi/services';
 
 @Entity('processes')
 export class Process {
+
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -49,18 +49,5 @@ export class Process {
 
   constructor(partial: Partial<Process | ProcessInput | ProcessCreationInput>) {
     Object.assign(this, partial);
-  }
-
-  @BeforeInsert()
-  @BeforeUpdate()
-  async updateEntity() {
-    console.log('XXXXXXXXXXXX');
-    await this.addKpiData();
-  }
-
-  async addKpiData() {
-    if (this.kpiId && this.data) {
-      this.data = await computeKpi(this.kpiId, this.data);
-    }
   }
 }

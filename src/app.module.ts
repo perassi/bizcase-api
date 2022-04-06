@@ -7,6 +7,7 @@ import { UsersModule } from 'modules/users';
 import { AuthModule } from 'modules/auth';
 import { BizcasesModule } from 'modules/bizcases';
 import { TcoModule } from 'modules/tco';
+import { KpiModule } from 'modules/kpi';
 
 import { User } from 'modules/users/entities';
 import { BcTemplate, Bizcase, ProcLut, TplProcess, Process } from 'modules/bizcases/entities';
@@ -18,6 +19,7 @@ import {
   ResourceDetail,
   OtherCostOpt,
 } from 'modules/tco/entities';
+import { KpiLib } from 'modules/kpi/entities';
 
 import { AppController } from './app.controller';
 
@@ -47,11 +49,23 @@ import { AppController } from './app.controller';
       }),
       inject: [ConfigService],
     }),
+    TypeOrmModule.forRootAsync({
+      name: 'kpiConnection',
+      useFactory: async (configService: ConfigService) => ({
+        ...configService.get('kpiDatabase'),
+        entities: [
+          KpiLib,
+        ],
+        name: 'kpiConnection',
+      }),
+      inject: [ConfigService],
+    }),
     PassportModule.register({ defaultStrategy: 'jwt' }),
     UsersModule,
     AuthModule,
     BizcasesModule,
     TcoModule,
+    KpiModule,
   ],
   controllers: [AppController],
   providers: [],

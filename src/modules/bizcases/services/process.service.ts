@@ -9,6 +9,7 @@ import { BaseService } from 'modules/common/services';
 
 import { Process } from '../entities';
 import { ProcessCreationInput, ProcessInput, ProcessArgs } from '../dto';
+import { KpiLibService } from 'modules/kpi/services';
 
 @Injectable()
 export class ProcessService extends BaseService {
@@ -44,7 +45,7 @@ export class ProcessService extends BaseService {
   }
 
   async saveMany(data: ProcessInput[]) {
-    const processes = await this.processRepository.findByIds(data.map(item => item.id))
+    const processes = await this.processRepository.findByIds(data.map(item => item.id));
     processes.map(pro => {
       Object.assign(pro, _.find(data, { id: pro.id }));
     });
