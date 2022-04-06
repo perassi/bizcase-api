@@ -31,7 +31,7 @@ import { AppController } from './app.controller';
     }),
     TypeOrmModule.forRootAsync({
       useFactory: async (configService: ConfigService) => ({
-        ...configService.get('database'),
+        ...configService.get('database').default,
         entities: [
           User,
           BcTemplate,
@@ -52,7 +52,7 @@ import { AppController } from './app.controller';
     TypeOrmModule.forRootAsync({
       name: 'kpiConnection',
       useFactory: async (configService: ConfigService) => ({
-        ...configService.get('kpiDatabase'),
+        ...configService.get('database').kpi,
         entities: [
           KpiLib,
         ],
