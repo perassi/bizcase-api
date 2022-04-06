@@ -1,5 +1,4 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, PrimaryColumn, OneToMany } from 'typeorm';
-import { Kpi } from '../dto';
 
 @Entity('kpi_libs')
 export class KpiLib {
@@ -14,7 +13,7 @@ export class KpiLib {
     type: 'jsonb',
     nullable: true,
   })
-  kpi?: Kpi;
+  kpi?: {[key: string ]: any};
 
   @Column({
     name: 'tags',
