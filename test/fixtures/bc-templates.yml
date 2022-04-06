@@ -1,0 +1,7 @@
+entity: BcTemplate
+items:
+  bcTemplate1:
+    id: 1
+    userId: '@user1'
+    name: 'test'
+    description: ''

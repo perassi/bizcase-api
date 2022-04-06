@@ -1,0 +1,6 @@
+entity: User
+items:
+  user1:
+    id: 1
+    email: 'test@test.com'
+    password: 'test'

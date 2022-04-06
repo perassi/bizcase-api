@@ -1,0 +1,12 @@
+entity: ProcLut
+items:
+  procLut1:
+    id: 1
+    name: 'EPM'
+    proc: ''
+    comment: ''
+  procLut2:
+    id: 2
+    name: 'Finance'
+    proc: ''
+    comment: ''

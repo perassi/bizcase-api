@@ -8,7 +8,7 @@ export default registerAs('database', () => {
         database: ':memory:',
         dropSchema: true,
         synchronize: true,
-        logging: true,
+        logging: false,
       },
 
       kpi: {

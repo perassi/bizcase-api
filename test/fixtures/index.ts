@@ -1,36 +1,22 @@
-import { getRepository } from 'typeorm';
-import { User } from 'modules/users/entities';
 
-import { USERS, BC_TEMPLATES, PROC_LUTS, TPL_PROCESSES } from './data';
-import { BcTemplate, TplProcess, ProcLut } from 'modules/bizcases/entities';
+import * as path from 'path';
+import { Builder, fixturesIterator, Loader, Parser, Resolver } from 'typeorm-fixtures-cli/dist';
+import { createConnection, getRepository } from 'typeorm';
 
-export async function seedData(module) {
-  await seedUsers();
-  await seedTemplates();
-  await seedProcLuts();
-  await seedTplProcesses();
-}
+export const loadFixtures = async (connection, fixturesPath: string) => {
+  try {
+    const loader = new Loader();
+    loader.load(path.resolve(fixturesPath));
 
-async function seedUsers() {
-  const repository = getRepository(User);
+    const resolver = new Resolver();
+    const fixtures = resolver.resolve(loader.fixtureConfigs);
+    const builder = new Builder(connection, new Parser());
 
-  await repository.save(USERS);
-}
-
-async function seedTemplates() {
-  const repository = getRepository(BcTemplate);
-
-  await repository.save(BC_TEMPLATES);
-}
-
-async function seedProcLuts() {
-  const repository = getRepository(ProcLut);
-
-  await repository.save(PROC_LUTS);
-}
-
-async function seedTplProcesses() {
-  const repository = getRepository(TplProcess);
-
-  await repository.save(TPL_PROCESSES);
-}
+    for (const fixture of fixturesIterator(fixtures)) {
+      const entity: any = await builder.build(fixture);
+      await getRepository(entity.constructor.name).save(entity);
+    }
+  } catch (err) {
+    throw err;
+  }
+};

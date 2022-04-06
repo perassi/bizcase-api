@@ -1,0 +1,14 @@
+entity: TplProcess
+items:
+  tplProcess1:
+    id: 1
+    bcTemplateId: '@bcTemplate1'
+    procLutId: '@procLut1'
+    kpiId: 1,
+    meta: '{}'
+  tplProcess2:
+    id: 2
+    bcTemplateId: '@bcTemplate1'
+    procLutId: '@procLut2'
+    kpiId: 122,
+    meta: '{}'
