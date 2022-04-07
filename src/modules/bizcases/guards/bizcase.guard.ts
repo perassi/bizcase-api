@@ -30,6 +30,7 @@ export class BizcaseGuard implements CanActivate {
     //   .select(['bizcases.id', ''bizcases.userId', 'user.id'])
     //   .getMany();
 
+    // All allowed users - owner + shared users
     const allUsers = [bizcase.userId, ...bizcase.sharedUsers.map(user => user.id)];
 
     const currentUser = request.user;

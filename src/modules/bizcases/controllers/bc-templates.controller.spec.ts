@@ -37,7 +37,7 @@ const user: User = {
 describe('BcTemplateController', () => {
   let bcTemplatesController: BcTemplateController;
   let bcTemplateService: BcTemplateService;
-  let bcTemplateRepository: Repository<BcTemplate>;
+  const bcTemplateRepository: Repository<BcTemplate> = null;
 
   beforeEach(async () => {
     bcTemplateService = new BcTemplateService(bcTemplateRepository);

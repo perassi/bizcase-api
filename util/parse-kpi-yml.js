@@ -1,3 +1,11 @@
+// Script file to generate SQL creating kpi_lib data 
+// to kpi_libs table of kpi database using yml file
+
+/*
+ * sample
+ * node utils/parse-kpi-yml.js path/to/ymlfile.yml
+ */
+
 const YAML = require('yamljs');
 const tableName = 'kpi_libs';
 const createRecord = (record) => (

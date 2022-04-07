@@ -1,12 +1,14 @@
-# APQC
+# Bizcase API
 
-### Tech Stacks
+## Tech Stacks
 
 - Language: NodeJS + TypeScript
 - Runtime: NodeJS 10.x
 - DataBase: PostgresSQL
-- ORM: TypeORM
+- Framework: [NestJS](https://docs.nestjs.com)
+- ORM: [TypeORM](https://typeorm.io/)
 - Docker with `docker-compose`
+- [Jenkins](https://jenkins.io/) for CI/CD
 
 ## Installation
 
@@ -14,7 +16,7 @@
 $ yarn
 ```
 
-## Running the app
+## Configuration
 
 ### API keys and secrets
 
@@ -27,26 +29,9 @@ cp .env.example .env
 
 ### TypeORM config
 
-```bash
-# Copy Typeorm config example file for database settings
-cp ormconfig.json.example ormconfig.json
-```
-Postgres database settings in ormconfig.json
+2 TypeORM is used and they are specified in .env file and configured from `src/database.config.ts`.
 
-    {
-      "type": "postgres",
-      "host": "localhost",
-      "port": 5432,
-      "username": "postgres",
-      "password": "postgres",
-      "database": "apqc_r721",
-      "entities": ["src/modules/**/**.entity{.ts,.js}"],
-      "synchronize": true
-    }
-
-On application start, tables for all entities will be created.
-
-### create database
+### Create database
 
 You should create database before the first time you run the repo locally.
 
@@ -55,15 +40,45 @@ You should create database before the first time you run the repo locally.
 docker-compose up -d
 
 # OR use environment variables docker-compose
-POSTGRES_DB=apqc_r721 POSTGRES_PORT=5432 POSTGRES_PASSWORD=postgres POSTGRES_PASSWORD=postgres docker-compose up -d
+POSTGRES_DB=biz_case POSTGRES_PORT=5432 POSTGRES_PASSWORD=postgres POSTGRES_PASSWORD=postgres docker-compose up -d
 ```
 
-### Scripts
+## Development
+
+### Start Development Server
+```bash
+# development in watch mode
+$ yarn dev
+
+# debug
+$ yarn start:debug
+
+```
+
+### Linting
 
 ```bash
-# apqc script
-$ yarn apqc
-
-# or
-ts-node -r dotenv/config -r tsconfig-paths/register src/scripts/apqc.ts
+$ yarn lint
 ```
+
+### Test
+```bash
+$ yarn test
+
+# in watch mode
+$ yarn test:watch
+```
+
+## Production
+```bash
+$ docker-compose -p bizcase-api up
+```
+
+## API Documentation
+```bash
+$ yarn dev
+# or
+$ yarn build && yarn start:prod
+```
+
+You can see [swagger](https://swagger.io/) documentation from `http://{{host}}:{{port}}/docs`.
