@@ -12,7 +12,7 @@ import {
   ParseIntPipe,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiTags, ApiBearerAuth, ApiCreatedResponse, ApiBody } from '@nestjs/swagger';
 
 import { CurrentUser } from 'modules/common/decorators';
 import { User } from 'modules/users/entities';
@@ -20,6 +20,7 @@ import { User } from 'modules/users/entities';
 import { ResourceDetailService } from '../services';
 import { ResourceDetailInput, ResourceDetailCreationInput, ResourceDetailsArgs } from '../dto';
 
+@ApiBearerAuth()
 @ApiTags('resource-details')
 @UseGuards(AuthGuard())
 @UseInterceptors(ClassSerializerInterceptor)
@@ -47,6 +48,7 @@ export class ResourceDetailController {
     return this.resourceDetailService.create({ ...data });
   }
 
+  @ApiBody({ type: [ResourceDetailCreationInput] })
   @Post('/insert-many')
   async insertMany(@Body() data: ResourceDetailCreationInput[]) {
     return this.resourceDetailService.insertMany(data);
@@ -57,6 +59,7 @@ export class ResourceDetailController {
     return this.resourceDetailService.save(id, data);
   }
 
+  @ApiBody({ type: [ResourceDetailInput] })
   @Post('/save-many')
   async saveMany(@Body() data: ResourceDetailInput[]) {
     return this.resourceDetailService.saveMany(data);

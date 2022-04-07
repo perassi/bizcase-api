@@ -12,11 +12,12 @@ import {
   ParseIntPipe,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiTags, ApiBearerAuth, ApiCreatedResponse, ApiBody } from '@nestjs/swagger';
 
 import { ProcessService } from '../services';
 import { ProcessInput, ProcessCreationInput, ProcessArgs } from '../dto';
 
+@ApiBearerAuth()
 @ApiTags('processes')
 @UseGuards(AuthGuard())
 @UseInterceptors(ClassSerializerInterceptor)
@@ -44,6 +45,7 @@ export class ProcessController {
     return this.processService.create({ ...data });
   }
 
+  @ApiBody({ type: [ProcessCreationInput] })
   @Post('/insert-many')
   async insertMany(@Body() data: ProcessCreationInput[]) {
     return this.processService.insertMany(data);
@@ -54,6 +56,7 @@ export class ProcessController {
     return this.processService.save(id, data);
   }
 
+  @ApiBody({ type: [ProcessInput] })
   @Post('/save-many')
   async saveMany(@Body() data: ProcessInput[]) {
     return this.processService.saveMany(data);

@@ -12,7 +12,7 @@ import {
   ParseIntPipe,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiTags, ApiBearerAuth, ApiCreatedResponse, ApiBody } from '@nestjs/swagger';
 
 import { CurrentUser } from 'modules/common/decorators';
 import { User } from 'modules/users/entities';
@@ -20,6 +20,7 @@ import { User } from 'modules/users/entities';
 import { LicenseService } from '../services';
 import { LicenseInput, LicenseCreationInput, LicensesArgs } from '../dto';
 
+@ApiBearerAuth()
 @ApiTags('licenses')
 @UseGuards(AuthGuard())
 @UseInterceptors(ClassSerializerInterceptor)
@@ -47,6 +48,7 @@ export class LicenseController {
     return this.licenseService.create({ ...data });
   }
 
+  @ApiBody({ type: [LicenseCreationInput] })
   @Post('/insert-many')
   async insertMany(@Body() data: LicenseCreationInput[]) {
     return this.licenseService.insertMany(data);
@@ -57,6 +59,7 @@ export class LicenseController {
     return this.licenseService.save(id, data);
   }
 
+  @ApiBody({ type: [LicenseInput] })
   @Post('/save-many')
   async saveMany(@Body() data: LicenseInput[]) {
     return this.licenseService.saveMany(data);

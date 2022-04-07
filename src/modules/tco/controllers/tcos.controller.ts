@@ -12,7 +12,7 @@ import {
   ParseIntPipe,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiTags, ApiBearerAuth, ApiCreatedResponse, ApiBody } from '@nestjs/swagger';
 
 import { CurrentUser } from 'modules/common/decorators';
 import { User } from 'modules/users/entities';
@@ -20,6 +20,7 @@ import { User } from 'modules/users/entities';
 import { TcoService } from '../services';
 import { TcoInput, TcoCreationInput, TcosArgs } from '../dto';
 
+@ApiBearerAuth()
 @ApiTags('tcos')
 @UseGuards(AuthGuard())
 @UseInterceptors(ClassSerializerInterceptor)
@@ -47,6 +48,7 @@ export class TcoController {
     return this.tcoService.create({ ...data });
   }
 
+  @ApiBody({ type: [TcoCreationInput] })
   @Post('/insert-many')
   async insertMany(@Body() data: TcoCreationInput[]) {
     return this.tcoService.insertMany(data);
@@ -57,6 +59,7 @@ export class TcoController {
     return this.tcoService.save(id, data);
   }
 
+  @ApiBody({ type: [TcoInput] })
   @Post('/save-many')
   async saveMany(@Body() data: TcoInput[]) {
     return this.tcoService.saveMany(data);

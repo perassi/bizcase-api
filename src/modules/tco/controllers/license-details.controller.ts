@@ -12,11 +12,12 @@ import {
   ParseIntPipe,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiTags, ApiBearerAuth, ApiCreatedResponse, ApiBody } from '@nestjs/swagger';
 
 import { LicenseDetailService } from '../services';
 import { LicenseDetailInput, LicenseDetailCreationInput, LicenseDetailsArgs } from '../dto';
 
+@ApiBearerAuth()
 @ApiTags('license-details')
 @UseGuards(AuthGuard())
 @UseInterceptors(ClassSerializerInterceptor)
@@ -44,6 +45,7 @@ export class LicenseDetailController {
     return this.licenseDetailService.create({ ...data });
   }
 
+  @ApiBody({ type: [LicenseDetailCreationInput] })
   @Post('/insert-many')
   async insertMany(@Body() data: LicenseDetailCreationInput[]) {
     return this.licenseDetailService.insertMany(data);
@@ -54,6 +56,7 @@ export class LicenseDetailController {
     return this.licenseDetailService.save(id, data);
   }
 
+  @ApiBody({ type: [LicenseDetailInput] })
   @Post('/save-many')
   async saveMany(@Body() data: LicenseDetailInput[]) {
     return this.licenseDetailService.saveMany(data);

@@ -12,7 +12,8 @@ import {
   ParseIntPipe,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiTags, ApiBearerAuth, ApiCreatedResponse, ApiBody } from '@nestjs/swagger';
+
 
 import { CurrentUser } from 'modules/common/decorators';
 import { User } from 'modules/users/entities';
@@ -20,6 +21,7 @@ import { User } from 'modules/users/entities';
 import { ProcLutService } from '../services';
 import { ProcLutInput, ProcLutCreationInput, ProcLutsArgs } from '../dto';
 
+@ApiBearerAuth()
 @ApiTags('proc-luts')
 @UseGuards(AuthGuard())
 @UseInterceptors(ClassSerializerInterceptor)
@@ -47,6 +49,7 @@ export class ProcLutController {
     return this.procLutService.create({ ...data });
   }
 
+  @ApiBody({ type: [ProcLutCreationInput] })
   @Post('/insert-many')
   async insertMany(@Body() data: ProcLutCreationInput[]) {
     return this.procLutService.insertMany(data.map(item => ({ ...item })));
@@ -57,6 +60,7 @@ export class ProcLutController {
     return this.procLutService.save(id, data);
   }
 
+  @ApiBody({ type: [ProcLutInput] })
   @Post('/save-many')
   async saveMany(@Body() data: ProcLutInput[]) {
     return this.procLutService.saveMany(data);

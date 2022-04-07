@@ -12,11 +12,12 @@ import {
   ParseIntPipe,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiTags, ApiBearerAuth, ApiCreatedResponse, ApiBody } from '@nestjs/swagger';
 
 import { OtherCostOptService } from '../services';
 import { OtherCostOptInput, OtherCostOptCreationInput, OtherCostOptsArgs } from '../dto';
 
+@ApiBearerAuth()
 @ApiTags('other-cost-opts')
 @UseGuards(AuthGuard())
 @UseInterceptors(ClassSerializerInterceptor)
@@ -44,6 +45,7 @@ export class OtherCostOptController {
     return this.otherCostOptService.create({ ...data });
   }
 
+  @ApiBody({ type: [OtherCostOptCreationInput] })
   @Post('/insert-many')
   async insertMany(@Body() data: OtherCostOptCreationInput[]) {
     return this.otherCostOptService.insertMany(data);
@@ -54,6 +56,7 @@ export class OtherCostOptController {
     return this.otherCostOptService.save(id, data);
   }
 
+  @ApiBody({ type: [OtherCostOptInput] })
   @Post('/save-many')
   async saveMany(@Body() data: OtherCostOptInput[]) {
     return this.otherCostOptService.saveMany(data);

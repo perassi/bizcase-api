@@ -12,7 +12,7 @@ import {
   ParseIntPipe,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiTags, ApiBearerAuth, ApiCreatedResponse, ApiBody } from '@nestjs/swagger';
 
 import { CurrentUser } from 'modules/common/decorators';
 import { User } from 'modules/users/entities';
@@ -20,6 +20,7 @@ import { User } from 'modules/users/entities';
 import { TplProcessService } from '../services';
 import { TplProcessInput, TplProcessCreationInput, TplProcessArgs } from '../dto';
 
+@ApiBearerAuth()
 @ApiTags('tpl-processes')
 @UseGuards(AuthGuard())
 @UseInterceptors(ClassSerializerInterceptor)
@@ -47,6 +48,7 @@ export class TplProcessController {
     return this.tplProcessService.create({ ...data });
   }
 
+  @ApiBody({ type: [TplProcessCreationInput] })
   @Post('/insert-many')
   async insertMany(@Body() data: TplProcessCreationInput[]) {
     return this.tplProcessService.insertMany(data);
@@ -57,6 +59,7 @@ export class TplProcessController {
     return this.tplProcessService.save(id, data);
   }
 
+  @ApiBody({ type: [TplProcessInput] })
   @Post('/save-many')
   async saveMany(@Body() data: TplProcessInput[]) {
     return this.tplProcessService.saveMany(data);

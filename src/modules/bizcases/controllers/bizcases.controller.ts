@@ -12,7 +12,7 @@ import {
   ParseIntPipe,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiTags, ApiBearerAuth, ApiCreatedResponse, ApiBody } from '@nestjs/swagger';
 
 import { CurrentUser } from 'modules/common/decorators';
 import { User } from 'modules/users/entities';
@@ -20,6 +20,7 @@ import { User } from 'modules/users/entities';
 import { BizcaseService } from '../services';
 import { BizcaseInput, BizcaseCreationInput, BizcasesArgs } from '../dto';
 
+@ApiBearerAuth()
 @ApiTags('bizcases')
 @UseGuards(AuthGuard())
 @UseInterceptors(ClassSerializerInterceptor)
@@ -47,6 +48,7 @@ export class BizcaseController {
     return this.bizcaseService.create({ ...data, userId: user.id });
   }
 
+  @ApiBody({ type: [BizcaseCreationInput] })
   @Post('/insert-many')
   async insertMany(@Body() data: BizcaseCreationInput[], @CurrentUser() user: User) {
     return this.bizcaseService.insertMany(data.map(bc => ({ ...bc, userId: user.id })));
@@ -57,6 +59,7 @@ export class BizcaseController {
     return this.bizcaseService.save({ ...data, id });
   }
 
+  @ApiBody({ type: [BizcaseInput] })
   @Post('/save-many')
   async saveMany(@Body() data: BizcaseInput[]) {
     return this.bizcaseService.saveMany(data);

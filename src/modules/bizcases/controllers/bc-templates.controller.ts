@@ -12,7 +12,7 @@ import {
   ParseIntPipe,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiTags, ApiBearerAuth, ApiCreatedResponse, ApiBody } from '@nestjs/swagger';
 
 import { CurrentUser } from 'modules/common/decorators';
 import { User } from 'modules/users/entities';
@@ -20,6 +20,7 @@ import { User } from 'modules/users/entities';
 import { BcTemplateService } from '../services';
 import { BcTemplateInput, BcTemplateCreationInput, BcTemplatesArgs } from '../dto';
 
+@ApiBearerAuth()
 @ApiTags('bc-templates')
 @UseGuards(AuthGuard())
 @UseInterceptors(ClassSerializerInterceptor)
@@ -47,6 +48,7 @@ export class BcTemplateController {
     return this.bcTemplateService.create({ ...data, userId: user.id });
   }
 
+  @ApiBody({ type: [BcTemplateCreationInput] })
   @Post('/insert-many')
   async insertMany(@Body() data: BcTemplateCreationInput[], @CurrentUser() user: User) {
     return this.bcTemplateService.insertMany(data.map(bct => ({ ...bct, userId: user.id })));
@@ -57,6 +59,7 @@ export class BcTemplateController {
     return this.bcTemplateService.save(id, data);
   }
 
+  @ApiBody({ type: [BcTemplateInput] })
   @Post('/save-many')
   async saveMany(@Body() data: BcTemplateInput[]) {
     return this.bcTemplateService.saveMany(data);

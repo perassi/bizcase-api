@@ -6,7 +6,9 @@ export const setupSwaggerModule = ({ app }) => {
     .setDescription('The bizcases API description')
     .setVersion('1.0')
     .addTag('bizcases')
+    .addBearerAuth()
     .build();
+
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('/docs', app, document);
 };
