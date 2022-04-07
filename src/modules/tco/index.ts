@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PassportModule } from '@nestjs/passport';
+import { Bizcase } from 'modules/bizcases/entities';
 
 import {
   Tco,
@@ -36,6 +37,8 @@ import {
       Resource,
       ResourceDetail,
       OtherCostOpt,
+
+      Bizcase,
     ]),
     PassportModule.register({ defaultStrategy: 'jwt' }),
   ],

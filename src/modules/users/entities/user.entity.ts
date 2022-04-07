@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, BeforeInsert, OneToMany, Unique } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, BeforeInsert, OneToMany, Unique, ManyToMany, JoinTable } from 'typeorm';
 import { Exclude } from 'class-transformer';
 
 import { hash } from 'lib/passwordHasher';
@@ -34,7 +34,7 @@ export class User {
     bizcase => bizcase.user,
     {
       cascade: true,
-    }
+    },
   )
   bizcases?: Bizcase[];
 
@@ -43,9 +43,19 @@ export class User {
     template => template.user,
     {
       cascade: true,
-    }
+    },
   )
   bcTemplates?: BcTemplate[];
+
+  @ManyToMany(
+    type => Bizcase,
+    bizcase => bizcase.sharedUsers,
+    {
+      cascade: true,
+    },
+  )
+  @JoinTable()
+  sharedBizcases?: Bizcase[];
 
   @BeforeInsert()
   hashPassword?() {

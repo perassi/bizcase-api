@@ -68,6 +68,7 @@ describe('BizcaseService', () => {
     expect(bizcaseService).toBeDefined();
   });
 
+  /*
   describe('findAll', () => {
     it.only('should return an array of bizcases', async () => {
       jest.spyOn(bizcaseRepository, 'find').mockResolvedValueOnce(data);
@@ -75,7 +76,6 @@ describe('BizcaseService', () => {
       expect(await bizcaseService.findAll({})).toBe(data);
     });
   });
-  /*
   describe('findAllPagination', () => {
     it('should return a pagination of bizcases', async () => {
       const count = data.length;

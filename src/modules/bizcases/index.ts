@@ -29,6 +29,7 @@ import {
 } from './subscribers';
 
 import { KpiModule } from 'modules/kpi';
+import { BizcaseGuard } from './guards';
 
 @Module({
   imports: [
@@ -48,8 +49,11 @@ import { KpiModule } from 'modules/kpi';
     ProcLutService,
     TplProcessService,
     ProcessService,
+
     ProcessSubscriber,
     BizcaseSubscriber,
+
+    BizcaseGuard,
   ],
   controllers: [
     BcTemplateController,
@@ -59,6 +63,6 @@ import { KpiModule } from 'modules/kpi';
     ProcessController,
   ],
 
-  exports: [BizcaseService, BcTemplateService, TypeOrmModule],
+  exports: [BizcaseService, BcTemplateService, TypeOrmModule, BizcaseGuard],
 })
 export class BizcasesModule {}

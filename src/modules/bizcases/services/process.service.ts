@@ -17,12 +17,32 @@ export class ProcessService extends BaseService {
     super();
   }
 
-  async findAll(args: ProcessArgs): Promise<Process[]> {
-    return await this.processRepository.find(this.getFindAllQuery(args));
+  async findAll(args: ProcessArgs, bizcaseId: number): Promise<Process[]> {
+    const query = this.getFindAllQuery(args);
+    return await this.processRepository.find({
+      relations: ['bc'],
+      ...query,
+      where: {
+        ...query,
+        bc: {
+          id: bizcaseId,
+        },
+      },
+    });
   }
 
-  async findAllPagination(args: ProcessArgs): Promise<[Process[], number]> {
-    return await this.processRepository.findAndCount(this.getFindAllQuery(args));
+  async findAllPagination(args: ProcessArgs, bizcaseId: number): Promise<[Process[], number]> {
+    const query = this.getFindAllQuery(args);
+    return this.processRepository.findAndCount({
+      relations: ['bc'],
+      ...query,
+      where: {
+        ...query,
+        bc: {
+          id: bizcaseId,
+        },
+      },
+    });
   }
 
   async findOneById(id: number): Promise<Process> {

@@ -43,7 +43,7 @@ describe('ProcessController', () => {
     it('should return an array of processs', async () => {
       jest.spyOn(processService, 'findAll').mockImplementation(() => Promise.resolve(data));
 
-      expect(await processsController.findAll()).toBe(data);
+      expect(await processsController.findAll(1)).toBe(data);
     });
   });
 
@@ -55,7 +55,7 @@ describe('ProcessController', () => {
         .spyOn(processService, 'findAllPagination')
         .mockImplementation(() => Promise.resolve(result));
 
-      expect(await processsController.findAllPagination()).toBe(result);
+      expect(await processsController.findAllPagination(1)).toBe(result);
     });
   });
 
@@ -67,7 +67,7 @@ describe('ProcessController', () => {
         .spyOn(processService, 'findOneById')
         .mockImplementation(() => Promise.resolve(result));
 
-      expect(await processsController.findOne(1)).toBe(result);
+      expect(await processsController.findOne(1, 1)).toBe(result);
     });
   });
 

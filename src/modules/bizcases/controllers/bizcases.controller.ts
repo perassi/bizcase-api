@@ -19,6 +19,7 @@ import { User } from 'modules/users/entities';
 
 import { BizcaseService } from '../services';
 import { BizcaseInput, BizcaseCreationInput, BizcasesArgs } from '../dto';
+import { BizcaseGuard } from '../guards';
 
 @ApiBearerAuth()
 @ApiTags('bizcases')
@@ -30,16 +31,17 @@ export class BizcaseController {
 
   @Get('')
   async findAll(@Query() args?: BizcasesArgs, @CurrentUser() user?: User) {
-    return this.bizcaseService.findAll({ ...args, userId: user.id });
+    return this.bizcaseService.findAll(args, user);
   }
 
   @Get('/paginate')
   async findAllPagination(@Query() args?: BizcasesArgs, @CurrentUser() user?: User) {
-    return this.bizcaseService.findAllPagination({ ...args, userId: user.id });
+    return this.bizcaseService.findAllPagination(args, user);
   }
 
-  @Get('/:id')
-  async findOne(@Param('id', new ParseIntPipe()) id: number) {
+  @Get('/:bizcaseId')
+  @UseGuards(BizcaseGuard)
+  async findOne(@Param('bizcaseId', new ParseIntPipe()) id: number) {
     return this.bizcaseService.findOneById(id);
   }
 
@@ -54,12 +56,28 @@ export class BizcaseController {
     return this.bizcaseService.insertMany(data.map(bc => ({ ...bc, userId: user.id })));
   }
 
+  @Post('/:bizcaseId/add-shared-users')
+  @ApiBody({ type: [Number] })
+  @UseGuards(BizcaseGuard)
+  async addSharedUsers(@Param('bizcaseId', new ParseIntPipe()) id: number, @Body() userIds: number[]) {
+    return this.bizcaseService.addSharedUsers(id, userIds);
+  }
+
+  @Post('/:bizcaseId/remove-shared-users')
+  @ApiBody({ type: [Number] })
+  @UseGuards(BizcaseGuard)
+  async removeSharedUsers(@Param('bizcaseId', new ParseIntPipe()) id: number, @Body() userIds: number[]) {
+    return this.bizcaseService.removeSharedUsers(id, userIds);
+  }
+
   @Post('/:id/clone')
+  @UseGuards(BizcaseGuard)
   async clone(@Param('id', new ParseIntPipe()) id: number) {
     return this.bizcaseService.clone(id);
   }
 
   @Post('/:id')
+  @UseGuards(BizcaseGuard)
   async save(@Param('id', new ParseIntPipe()) id: number, @Body() data: BizcaseInput) {
     return this.bizcaseService.save({ ...data, id });
   }
@@ -70,7 +88,8 @@ export class BizcaseController {
     return this.bizcaseService.saveMany(data);
   }
 
-  @Delete('/:id')
+  @Delete('/:bizcaseId')
+  @UseGuards(BizcaseGuard)
   async remove(@Param('id', new ParseIntPipe()) id: number) {
     return this.bizcaseService.remove(id);
   }

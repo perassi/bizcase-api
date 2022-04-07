@@ -6,6 +6,8 @@ import { BaseService } from 'modules/common/services';
 
 import { Bizcase } from '../entities';
 import { BizcaseCreationInput, BizcaseInput, BizcasesArgs } from '../dto';
+
+import { User } from 'modules/users/entities';
 import { Tco } from 'modules/tco/entities';
 
 @Injectable()
@@ -15,11 +17,37 @@ export class BizcaseService extends BaseService {
     super();
   }
 
-  async findAll(args: BizcasesArgs): Promise<Bizcase[]> {
-    return await this.bizcaseRepository.find(this.getFindAllQuery(args));
+  async findAll(args: BizcasesArgs, currentUser: User): Promise<Bizcase[]> {
+    const query = this.getFindAllQuery(args);
+
+    // const bizcases =  this.bizcaseRepository.createQueryBuilder('bizcases')
+    //   .leftJoinAndSelect('bizcases.sharedUsers', 'user')
+    //   .select(['bizcases.id', 'bizcases.userId', 'user.id'])
+    //   .where([{
+    //       userId: currentUser.id,
+    //       ...query.where,
+    //     }, {
+    //       'user.id': currentUser.id,
+    //       ...query.where,
+    //     }])
+    //   .getMany();
+
+    // return await this.bizcaseRepository.find({
+    //   ...query,
+    //   relations: ['sharedUsers'],
+    //   where: [{
+    //     userId: currentUser.id,
+    //     ...query.where,
+    //   }, {
+    //     'sharedUsers.id': currentUser.id,
+    //     ...query.where,
+    //   }],
+    // });
+
+    return this.bizcaseRepository.find(query);
   }
 
-  async findAllPagination(args: BizcasesArgs): Promise<[Bizcase[], number]> {
+  async findAllPagination(args: BizcasesArgs, currentUser: User): Promise<[Bizcase[], number]> {
     return await this.bizcaseRepository.findAndCount(this.getFindAllQuery(args));
   }
 
@@ -111,6 +139,33 @@ export class BizcaseService extends BaseService {
   async saveMany(data: BizcaseInput[]) {
     const result = await this.bizcaseRepository.save(data);
     return await this.bizcaseRepository.findByIds(result.map(bc => bc.id));
+  }
+
+  async removeSharedUsers(id: number, userIds: number[]) {
+    const bizcase = await this.bizcaseRepository.findOne(id, { relations: ['sharedUsers'] });
+
+    bizcase.sharedUsers = bizcase.sharedUsers.filter(user => userIds.indexOf(user.id) === -1);
+
+    await this.bizcaseRepository.save(bizcase);
+
+    bizcase.sharedUsers = bizcase.sharedUsers.map(user => new User({ id: user.id }));
+    return bizcase;
+  }
+
+  async addSharedUsers(id: number, userIds: number[]) {
+    const bizcase = await this.bizcaseRepository.findOne(id, { relations: ['sharedUsers'] });
+
+    userIds.forEach(userId => {
+      if (bizcase.sharedUsers.map(user => user.id).indexOf(userId) === -1) {
+        bizcase.sharedUsers.push(new User({ id: userId }));
+      }
+    });
+
+    await this.bizcaseRepository.save(bizcase);
+
+    bizcase.sharedUsers = bizcase.sharedUsers.map(user => new User({ id: user.id }));
+    return bizcase;
+
   }
 
   async remove(id: number) {

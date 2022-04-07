@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, Unique, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, Unique, OneToMany, JoinOptions, ManyToMany, JoinTable, RelationId } from 'typeorm';
 
 import { User } from 'modules/users/entities';
 import { BizcaseInput, BizcaseCreationInput } from '../dto';
@@ -73,6 +73,12 @@ export class Bizcase {
     },
   )
   processes?: Process[];
+
+  @ManyToMany(
+    type => User,
+    user => user.sharedBizcases,
+  )
+  sharedUsers?: User[];
 
   constructor(partial: Partial<Bizcase | BizcaseInput | BizcaseCreationInput>) {
     Object.assign(this, partial);
