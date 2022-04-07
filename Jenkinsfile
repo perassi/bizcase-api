@@ -15,6 +15,8 @@ pipeline {
     GIT_COMMIT_SHA      = ""
     GIT_DESC            = ""
     DOCKER_HOST         = ""
+    JWT_SECERT          = "capadmin_auth_jwt_secret"
+    JWT_EXPIRE_IN       = "90d"
   }
 
   stages {
