@@ -17,6 +17,12 @@ pipeline {
     DOCKER_HOST         = ""
     JWT_SECERT          = "capadmin_auth_jwt_secret"
     JWT_EXPIRE_IN       = "90d"
+    KPI_DATABASE_TYPE       = credentials('kpi-db-type')
+    KPI_DATABASE_HOST       = credentials('kpi-db-host')
+    KPI_DATABASE_PORT       = credentials('kpi-db-port')
+    KPI_DATABASE_USERNAME   = credentials('kpi-db-username')
+    KPI_DATABASE_PASSWORD   = credentials('kpi-db-password')
+    KPI_DATABASE_NAME       = credentials('kpi-db-name')
   }
 
   stages {
@@ -97,7 +103,7 @@ pipeline {
         stage('docker-compose to remote server') {
           steps {
             withEnv(["DOCKER_HOST=ssh://ec2-user@54.88.176.131"]) {
-              sh("DATABASE_PASSWORD='$DATABASE_PASSWORD' DATABASE_USERNAME='$DATABASE_USERNAME' docker-compose -p bizcase-api up -d --remove-orphans")
+              sh("DATABASE_PASSWORD='$DATABASE_PASSWORD' DATABASE_USERNAME='$DATABASE_USERNAME' KPI_DATABASE_TYPE='$KPI_DATABASE_TYPE' KPI_DATABASE_HOST='$KPI_DATABASE_HOST' KPI_DATABASE_PORT='$KPI_DATABASE_PORT' KPI_DATABASE_USERNAME='$KPI_DATABASE_USERNAME' KPI_DATABASE_PASSWORD='$KPI_DATABASE_PASSWORD' KPI_DATABASE_NAME='$KPI_DATABASE_NAME' docker-compose -p bizcase-api up -d --remove-orphans")
             }
           }
         }
