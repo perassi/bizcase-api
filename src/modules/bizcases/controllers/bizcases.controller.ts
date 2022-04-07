@@ -54,6 +54,11 @@ export class BizcaseController {
     return this.bizcaseService.insertMany(data.map(bc => ({ ...bc, userId: user.id })));
   }
 
+  @Post('/:id/clone')
+  async clone(@Param('id', new ParseIntPipe()) id: number) {
+    return this.bizcaseService.clone(id);
+  }
+
   @Post('/:id')
   async save(@Param('id', new ParseIntPipe()) id: number, @Body() data: BizcaseInput) {
     return this.bizcaseService.save({ ...data, id });

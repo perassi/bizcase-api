@@ -1,0 +1,13 @@
+entity: Tco
+items:
+  procLut1:
+    id: 1
+    parmIntRate: 1
+    parmTaxRate: 1
+    parmPrepaidAssetYrs: 1
+    parmFixedAssetYrs: 1
+    parmCcy: 'USD'
+    parmClientCcy: 'USD'
+    parmCcyRate: 1
+    bc: '@bc1'
+  

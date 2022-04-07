@@ -32,22 +32,26 @@ export class BizcaseSubscriber implements EntitySubscriberInterface<Bizcase> {
   }
 
   async createProcesses(bizcase: Bizcase) {
-    const template = await this.bcTemplateRepository.findOne({
-      where: {
-        id: bizcase.templateId,
-      },
-      relations: ['tplProcesses'],
-    });
-
-    const newProcesses: ProcessCreationInput[] = [];
-    template.tplProcesses.map(tplProc => {
-      newProcesses.push({
-        bcId: bizcase.id,
-        procLutId: tplProc.procLutId,
-        kpiId: tplProc.kpiId,
-        data: {},
+    try {
+      const template = await this.bcTemplateRepository.findOne({
+        where: {
+          id: bizcase.templateId,
+        },
+        relations: ['tplProcesses'],
       });
-    });
-    await this.processService.insertMany(newProcesses);
+
+      const newProcesses: ProcessCreationInput[] = [];
+      template.tplProcesses.map(tplProc => {
+        newProcesses.push({
+          bcId: bizcase.id,
+          procLutId: tplProc.procLutId,
+          kpiId: tplProc.kpiId,
+          data: {},
+        });
+      });
+      await this.processService.insertMany(newProcesses);
+    } catch (err) {
+      console.log(err);
+    }
   }
 }

@@ -1,0 +1,7 @@
+entity: Bizcase
+items:
+  bc1:
+    id: 1
+    title: 'sample'
+    user: '@user1'
+    bcTemplate: '@bcTemplate1'

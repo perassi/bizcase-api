@@ -1,5 +1,5 @@
 // import { Test } from '@nestjs/testing';
-import { Repository } from 'typeorm';
+import { Repository, Connection } from 'typeorm';
 
 import { User } from 'modules/users/entities';
 import { Bizcase } from '../entities/bizcase.entity';
@@ -47,6 +47,7 @@ describe('BizcaseController', () => {
   let bizcasesController: BizcaseController;
   let bizcaseService: BizcaseService;
   let bizcaseRepository: Repository<Bizcase>;
+  let connection: Connection;
 
   beforeEach(async () => {
     /*
@@ -58,7 +59,7 @@ describe('BizcaseController', () => {
     bizcaseService = moduleRef.get<BizcaseService>(BizcaseService);
     bizcasesController = moduleRef.get<BizcaseController>(BizcaseController);
     */
-    bizcaseService = new BizcaseService(bizcaseRepository);
+    bizcaseService = new BizcaseService(bizcaseRepository, connection);
     bizcasesController = new BizcaseController(bizcaseService);
   });
 
